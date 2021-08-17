@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/currentFragment">
+
+    <fragment
+        android:id="@+id/forcastFragment"
+        android:name="com.example.weatherapp.ForcastFragment"
+        android:label="fragment_forcast"
+        tools:layout="@layout/fragment_forcast" />
+    <fragment
+        android:id="@+id/currentFragment"
+        android:name="com.example.weatherapp.CurrentFragment"
+        android:label="fragment_current"
+        tools:layout="@layout/fragment_current" >
+        <action
+            android:id="@+id/toForcast"
+            app:destination="@id/forcastFragment" />
+    </fragment>
+</navigation>

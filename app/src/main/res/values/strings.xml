@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Weather App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="current_temp_is">Current Temp is</string>
+    <string name="textview">TextView</string>
+    <string name="forcast">Forcast</string>
+    <string name="sharedpref" />
+    <string name="forecast_is">Forecast Is</string>
+</resources>
