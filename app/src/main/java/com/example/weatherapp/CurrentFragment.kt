@@ -38,7 +38,9 @@ class CurrentFragment : BaseFragment<MainViewModel, FragmentCurrentBinding, Weat
 
                 is Resource.Success -> {
                     //Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                    temperatureView.text = it.value.main.temp.toString() +"\n" + it.value.weather[0].description
+                    temperatureView.text = ("Current Temp:" +it.value.main.temp.toString() +"\n"
+                     +"Min temp :" + it.value.main.temp_min +"\n"+"Max temp :" +it.value.main.temp_min
+                   +"\n"+ "Description" + it.value.weather[0].description+"\n")
                 }
                 is Resource.Failure -> {
                     Toast.makeText(requireContext(), "Failure", Toast.LENGTH_LONG).show()
