@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         fetchLocation()
         setContentView(R.layout.activity_main)
-
-
     }
 
     private fun fetchLocation() {
@@ -35,18 +33,19 @@ class MainActivity : AppCompatActivity() {
 
         task.addOnSuccessListener { it ->
             if (it != null) {
-               data.setLatitude(it.latitude.toInt())
-                data.setLongitude(it.longitude.toInt())
 
+              var toastString  =( "Latitude is "+
+                      it.latitude.toString() +"\n" + "Longitude is "
+                      +it.longitude.toString())
                 save(it.latitude.toInt(),it.longitude.toInt())
-                Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
+                Toast.makeText(this, toastString, Toast.LENGTH_LONG).show()
             }
         }
 
-        return
+
 
     }
-    private fun checkLocationPermission() {
+    private fun checkLocationPermission(){
 
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -65,10 +64,33 @@ class MainActivity : AppCompatActivity() {
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
                 101
             )
-            return
+
         }
-        return
+
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    )  {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        {
+            Toast.makeText(this,"Thanks for the Permission",Toast.LENGTH_LONG).show()
+        }
+        else
+        {
+            Toast.makeText(this,"Please Grant Permission",Toast.LENGTH_LONG).show()
+
+            checkLocationPermission()
+        }
+
+
+    }
+
     private fun save(lat: Int, lon: Int) {
         val sharedPrefFile = getString(R.string.sharedpref)
         val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile,
@@ -78,11 +100,8 @@ class MainActivity : AppCompatActivity() {
         editor.putInt("lon",lon)
         editor.apply()
         editor.commit()
-        return
-    }
-companion object{
-      var data = Data( 0,0)
 
-}
+    }
+
 
 }

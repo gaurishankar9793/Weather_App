@@ -36,8 +36,8 @@ class ForecastFragment : Fragment() {
 
         viewModel.forcastResponse.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(),"Success", Toast.LENGTH_SHORT).show()
-            it.list.forEach{
-                forcastText+=  "temp :" + it.main.temp + " weather :" + it.weather[0].description +"\n"
+            it.list.take(10).forEach{
+                forcastText+=  "temp :" + ktoC(it.main.temp) + " weather :" + it.weather[0].description +"\n"
             }
             forcastView.text = forcastText
 
@@ -63,5 +63,8 @@ class ForecastFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_forecast, container, false)
     }
 
+    private fun ktoC(temp: Double): String {
+        return (temp - 273.15).toFloat().toString().trim()
+    }
 
 }

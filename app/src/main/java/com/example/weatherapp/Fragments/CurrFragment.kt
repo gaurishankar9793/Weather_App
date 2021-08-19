@@ -37,13 +37,13 @@ class CurrFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val forcastButton: Button = view.findViewById(R.id.button)
         val temperatureView: TextView = view.findViewById(R.id.textView2)
-
+        val headerView : TextView = view.findViewById(R.id.textView)
         viewModel =  ViewModelProvider(this, ViewModelFactory(ApiRepository(currentApi ))).get(MainViewModel::class.java)
 
         viewModel.currentResponse.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                   temperatureView.text = ("Current Temp:" +it.main.temp.toString() +"\n"
-                           +"Min temp :" + it.main.temp_min +"\n"+"Max temp :" +it.main.temp_min
+                   temperatureView.text = ("Current Temp:" +ktoC(it.main.temp) +"\n"
+                           +"Min temp :" + ktoC(it.main.temp_min) +"\n"+"Max temp :" +ktoC(it.main.temp_max)
               +"\n"+ "Description " + it.weather[0].description+"\n")
 //
         }
@@ -54,6 +54,10 @@ class CurrFragment : Fragment() {
         )
         val lat = sharedPref?.getInt("lat",23)
         val lon =sharedPref?.getInt("lon",80)
+        var toastString  =( "Latitude is "+
+                lat.toString() +"\n" + "Longitude is "
+                +lon.toString())
+        headerView.text = toastString
         if (lat != null && lon!=null) {
             viewModel.current(lat, lon, appid)
         }
@@ -72,6 +76,8 @@ class CurrFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_curr, container, false)
     }
-
+    private fun ktoC(temp: Double): String {
+        return (temp - 273.15).toFloat().toString().trim()
+    }
 
 }
