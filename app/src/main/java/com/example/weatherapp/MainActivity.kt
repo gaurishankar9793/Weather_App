@@ -12,6 +12,9 @@ import com.google.android.gms.location.LocationServices
 class MainActivity : AppCompatActivity() {
 
 
+    //  private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
@@ -32,6 +35,9 @@ class MainActivity : AppCompatActivity() {
 
         task.addOnSuccessListener { it ->
             if (it != null) {
+               data.setLatitude(it.latitude.toInt())
+                data.setLongitude(it.longitude.toInt())
+
                 save(it.latitude.toInt(),it.longitude.toInt())
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
             }
@@ -74,6 +80,9 @@ class MainActivity : AppCompatActivity() {
         editor.commit()
         return
     }
+companion object{
+      var data = Data( 0,0)
 
+}
 
 }

@@ -3,20 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/currentFragment">
-
+    app:startDestination="@id/currFragment">
     <fragment
-        android:id="@+id/forcastFragment"
-        android:name="com.example.weatherapp.ForcastFragment"
-        android:label="fragment_forcast"
-        tools:layout="@layout/fragment_forcast" />
-    <fragment
-        android:id="@+id/currentFragment"
-        android:name="com.example.weatherapp.CurrentFragment"
-        android:label="fragment_current"
-        tools:layout="@layout/fragment_current" >
+        android:id="@+id/currFragment"
+        android:name="com.example.weatherapp.Fragments.CurrFragment"
+        android:label="fragment_curr"
+        tools:layout="@layout/fragment_curr" >
         <action
-            android:id="@+id/toForcast"
-            app:destination="@id/forcastFragment" />
+            android:id="@+id/to_forecast"
+            app:destination="@id/forecastFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/forecastFragment"
+        android:name="com.example.weatherapp.Fragments.ForecastFragment"
+        android:label="fragment_forecast"
+        tools:layout="@layout/fragment_forecast" />
 </navigation>

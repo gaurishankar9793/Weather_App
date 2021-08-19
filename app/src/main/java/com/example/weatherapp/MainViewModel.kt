@@ -3,30 +3,57 @@ package com.example.weatherapp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.jsontype.CurrentResponse
 import com.example.weatherapp.jsontype.ForcastResponse
-import com.example.weatherapp.networkcalls.Resource
-import com.example.weatherapp.repository.WeatherRepository
-import kotlinx.coroutines.launch
+import com.example.weatherapp.repository.ApiRepository
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class MainViewModel(private val repository: WeatherRepository) :ViewModel() {
+class MainViewModel( private val rep :ApiRepository) :ViewModel() {
 
-    private val _currentResponse: MutableLiveData<Resource<CurrentResponse>> = MutableLiveData()
-    val currentResponse: LiveData<Resource<CurrentResponse>>
+    val errorMessage = MutableLiveData<String>()
+    private val _currentResponse: MutableLiveData<CurrentResponse> = MutableLiveData()
+    val currentResponse: LiveData<CurrentResponse>
         get() = _currentResponse
 
-    fun current( lat:Int,lon :Int,appid: String) = viewModelScope.launch{
-        _currentResponse.value = repository.current(lat,lon, appid)
+    fun current( lat:Int,lon :Int,appid: String) {
+
+
+
+            val response = rep.getCurrent(lat, lon, appid)
+            response.enqueue(object : Callback<CurrentResponse> {
+                override fun onResponse(call: Call<CurrentResponse>, response: Response<CurrentResponse>) {
+                  _currentResponse.postValue(response.body())
+                }
+
+                override fun onFailure(call: Call<CurrentResponse>, t: Throwable) {
+                    errorMessage.postValue(t.message)
+                }
+            })
+
     }
 
     //For getting forcast
-    private val _forcastResponse: MutableLiveData<Resource<ForcastResponse>> = MutableLiveData()
-    val forcastResponse: LiveData<Resource<ForcastResponse>>
+    private val _forcastResponse: MutableLiveData<ForcastResponse> = MutableLiveData()
+    val forcastResponse: LiveData<ForcastResponse>
         get() = _forcastResponse
 
-    fun forcast( lat:Int,lon :Int,appid: String) = viewModelScope.launch{
-        _forcastResponse.value = repository.forcast(lat,lon, appid)
+    fun forecast( lat:Int,lon :Int,appid: String) {
+
+
+
+        val response = rep.getForcast(lat, lon, appid)
+        response.enqueue(object : Callback<ForcastResponse> {
+            override fun onResponse(call: Call<ForcastResponse>, response: Response<ForcastResponse>) {
+                _forcastResponse.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<ForcastResponse>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+
     }
 
 }
