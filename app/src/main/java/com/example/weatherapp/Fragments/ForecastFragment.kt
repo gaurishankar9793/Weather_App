@@ -40,7 +40,9 @@ class ForecastFragment : Fragment() {
         }
         )
 
-        viewModel.forecast()
+        viewModel.lat.observe(viewLifecycleOwner, Observer {
+            viewModel.forecast()
+        })
     }
 
     override fun onCreateView(

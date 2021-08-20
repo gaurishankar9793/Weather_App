@@ -19,22 +19,30 @@ class MainViewModel(application: Application) :AndroidViewModel(application) {
     val currentResponse: LiveData<CurrentResponse>
         get() = _currentResponse
 
-    var lat :Int = 0
+    private val _lat: MutableLiveData<Int> = MutableLiveData()
+    val lat: LiveData<Int>
+        get() = _lat
+
+    private val _lon: MutableLiveData<Int> = MutableLiveData()
+    val lon: LiveData<Int>
+        get() = _lon
     fun setLatitude(field : Int)
     {
-        this.lat = field
+        _lat.value = field
     }
 
-    var lon :Int = 0
     fun setLongitude(field : Int)
     {
-        this.lon = field
+        _lon.value = field
     }
+
 
 
 
     fun current() {
-            val response = ApiRepository.getCurrent(lat, lon, appid)
+
+
+            val response = ApiRepository.getCurrent(_lat.value!!, _lon.value!!, appid)
             response.enqueue(object : Callback<CurrentResponse> {
                 override fun onResponse(call: Call<CurrentResponse>, response: Response<CurrentResponse>) {
                   _currentResponse.postValue(response.body())
@@ -56,7 +64,7 @@ class MainViewModel(application: Application) :AndroidViewModel(application) {
 
 
 
-        val response = ApiRepository.getForcast(lat, lon, appid)
+        val response = ApiRepository.getForcast(_lat.value!!, _lon.value!!, appid)
         response.enqueue(object : Callback<ForcastResponse> {
             override fun onResponse(call: Call<ForcastResponse>, response: Response<ForcastResponse>) {
                 _forcastResponse.postValue(response.body())

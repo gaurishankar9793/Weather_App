@@ -16,8 +16,7 @@ import com.example.weatherapp.R
 
 
 class CurrFragment : Fragment() {
-    private var lat: Int = 232
-    private var lon: Int = 0
+
     private val viewModel: MainViewModel by activityViewModels()
 
 
@@ -40,11 +39,11 @@ class CurrFragment : Fragment() {
 //
         }
         )
-        temperatureView.text = lat.toString()
 
 
-        viewModel.current()
-
+     viewModel.lon.observe(viewLifecycleOwner, Observer {
+         viewModel.current()
+     })
 
 
 
