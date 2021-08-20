@@ -1,6 +1,6 @@
 package com.example.weatherapp.Fragments
 
-import ViewModelFactory
+
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +19,7 @@ import com.example.weatherapp.repository.ApiRepository
 
 class ForecastFragment : Fragment() {
     private val appid: String = "7ebaa839de68b76f9dfa66d483132d8a"
-    private val currentApi = CurrentApi.getInstance()
+
     private lateinit var viewModel : MainViewModel
 
 
@@ -32,7 +32,7 @@ class ForecastFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
       val  forcastView: TextView = view.findViewById(R.id.longtext)
     var forcastText = ""
-        viewModel =  ViewModelProvider(this, ViewModelFactory(ApiRepository(currentApi ))).get(MainViewModel::class.java)
+        viewModel =  ViewModelProvider(this).get(MainViewModel::class.java)
 
         viewModel.forcastResponse.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(),"Success", Toast.LENGTH_SHORT).show()

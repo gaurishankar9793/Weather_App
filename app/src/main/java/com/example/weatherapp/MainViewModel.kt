@@ -10,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel( private val rep :ApiRepository) :ViewModel() {
+class MainViewModel( ) :ViewModel() {
 
     val errorMessage = MutableLiveData<String>()
     private val _currentResponse: MutableLiveData<CurrentResponse> = MutableLiveData()
@@ -21,7 +21,7 @@ class MainViewModel( private val rep :ApiRepository) :ViewModel() {
 
 
 
-            val response = rep.getCurrent(lat, lon, appid)
+            val response = ApiRepository.getCurrent(lat, lon, appid)
             response.enqueue(object : Callback<CurrentResponse> {
                 override fun onResponse(call: Call<CurrentResponse>, response: Response<CurrentResponse>) {
                   _currentResponse.postValue(response.body())
@@ -43,7 +43,7 @@ class MainViewModel( private val rep :ApiRepository) :ViewModel() {
 
 
 
-        val response = rep.getForcast(lat, lon, appid)
+        val response = ApiRepository.getForcast(lat, lon, appid)
         response.enqueue(object : Callback<ForcastResponse> {
             override fun onResponse(call: Call<ForcastResponse>, response: Response<ForcastResponse>) {
                 _forcastResponse.postValue(response.body())

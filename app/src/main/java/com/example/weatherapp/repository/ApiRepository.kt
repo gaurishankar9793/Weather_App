@@ -1,11 +1,11 @@
 package com.example.weatherapp.repository
 
-import com.example.weatherapp.networkcalls.CurrentApi
+import com.example.weatherapp.networkcalls.DataClass
 
-class ApiRepository(private  val currentApi: CurrentApi) {
+object ApiRepository {
 
+    private  val dataClass =DataClass().getInstance()
+    fun getCurrent(lat :Int,lon :Int,appid : String) = dataClass.getCurrent(lat, lon, appid)
 
-    fun getCurrent(lat :Int,lon :Int,appid : String) = currentApi.getCurrent(lat, lon, appid)
-
-    fun getForcast(lat :Int,lon :Int,appid : String)  = currentApi.getForcast(lat,lon, appid)
+    fun getForcast(lat :Int,lon :Int,appid : String)  = dataClass.getForcast(lat,lon, appid)
 }

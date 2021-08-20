@@ -1,6 +1,5 @@
 package com.example.weatherapp.Fragments
 
-import ViewModelFactory
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,17 +14,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.MainViewModel
 import com.example.weatherapp.R
-import com.example.weatherapp.networkcalls.CurrentApi
-import com.example.weatherapp.repository.ApiRepository
 
 
 class CurrFragment : Fragment() {
     private var lat: Int = 232
     private var lon: Int = 0
     private val appid: String = "7ebaa839de68b76f9dfa66d483132d8a"
-    private val currentApi = CurrentApi.getInstance()
     //  private lateinit var fusedLocationClient: FusedLocationProviderClient
-        private lateinit var viewModel :MainViewModel
+    private lateinit var viewModel :MainViewModel
 
 
 
@@ -38,7 +34,7 @@ class CurrFragment : Fragment() {
         val forcastButton: Button = view.findViewById(R.id.button)
         val temperatureView: TextView = view.findViewById(R.id.textView2)
         val headerView : TextView = view.findViewById(R.id.textView)
-        viewModel =  ViewModelProvider(this, ViewModelFactory(ApiRepository(currentApi ))).get(MainViewModel::class.java)
+        viewModel =  ViewModelProvider(this).get(MainViewModel::class.java)
 
         viewModel.currentResponse.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
