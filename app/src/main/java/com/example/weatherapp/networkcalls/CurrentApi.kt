@@ -29,10 +29,5 @@ interface CurrentApi {
         @Query("appid") appid: String,
     ): Call<ForcastResponse>
 
-    companion object {
-
-
-
-    }
 
 }

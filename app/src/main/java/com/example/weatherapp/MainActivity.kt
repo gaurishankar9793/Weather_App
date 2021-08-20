@@ -1,34 +1,33 @@
 package com.example.weatherapp
 
-import android.content.Context
-import android.content.SharedPreferences
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.LocationServices
 
 class MainActivity : AppCompatActivity() {
 
-
-    //  private lateinit var fusedLocationClient: FusedLocationProviderClient
-
+   private lateinit var viewModel :MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
 
         super.onCreate(savedInstanceState)
-        fetchLocation()
         setContentView(R.layout.activity_main)
+         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        checkLocationPermission()
     }
 
+    @SuppressLint("MissingPermission")
     private fun fetchLocation() {
 
         var fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
-        checkLocationPermission()
         val task = fusedLocationProviderClient.lastLocation
 
         task.addOnSuccessListener { it ->
@@ -37,7 +36,10 @@ class MainActivity : AppCompatActivity() {
               var toastString  =( "Latitude is "+
                       it.latitude.toString() +"\n" + "Longitude is "
                       +it.longitude.toString())
-                save(it.latitude.toInt(),it.longitude.toInt())
+
+                viewModel.setLatitude(it.latitude.toInt())
+                viewModel.setLongitude(it.longitude.toInt())
+
                 Toast.makeText(this, toastString, Toast.LENGTH_LONG).show()
             }
         }
@@ -66,7 +68,8 @@ class MainActivity : AppCompatActivity() {
             )
 
         }
-
+    else
+            fetchLocation()
     }
 
     override fun onRequestPermissionsResult(
@@ -80,6 +83,8 @@ class MainActivity : AppCompatActivity() {
         if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
         {
             Toast.makeText(this,"Thanks for the Permission",Toast.LENGTH_LONG).show()
+            Log.d("perm","ew")
+            fetchLocation()
         }
         else
         {
@@ -91,17 +96,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun save(lat: Int, lon: Int) {
-        val sharedPrefFile = getString(R.string.sharedpref)
-        val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile,
-            Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor =  sharedPreferences.edit()
-        editor.putInt("lat",lat)
-        editor.putInt("lon",lon)
-        editor.apply()
-        editor.commit()
-
-    }
 
 
 }

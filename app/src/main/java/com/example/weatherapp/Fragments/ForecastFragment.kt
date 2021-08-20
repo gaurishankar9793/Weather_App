@@ -1,7 +1,6 @@
 package com.example.weatherapp.Fragments
 
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +8,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapp.MainViewModel
 import com.example.weatherapp.R
-import com.example.weatherapp.networkcalls.CurrentApi
-import com.example.weatherapp.repository.ApiRepository
 
 
 class ForecastFragment : Fragment() {
-    private val appid: String = "7ebaa839de68b76f9dfa66d483132d8a"
 
-    private lateinit var viewModel : MainViewModel
+    private val viewModel: MainViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,29 +26,21 @@ class ForecastFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-      val  forcastView: TextView = view.findViewById(R.id.longtext)
-    var forcastText = ""
-        viewModel =  ViewModelProvider(this).get(MainViewModel::class.java)
+        val forcastView: TextView = view.findViewById(R.id.longtext)
+        var forcastText = ""
+
 
         viewModel.forcastResponse.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(),"Success", Toast.LENGTH_SHORT).show()
-            it.list.take(10).forEach{
-                forcastText+=  "temp :" + ktoC(it.main.temp) + " weather :" + it.weather[0].description +"\n"
+            Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+            it.list.take(10).forEach {
+                forcastText += "temp :" + ktoC(it.main.temp) + " weather :" + it.weather[0].description + "\n"
             }
             forcastView.text = forcastText
 
         }
         )
 
-        val sharedPref = activity?.getSharedPreferences(
-            getString(R.string.sharedpref), Context.MODE_PRIVATE
-        )
-        val lat = sharedPref?.getInt("lat",23)
-        val lon =sharedPref?.getInt("lon",80)
-        if (lat != null && lon!=null) {
-            viewModel.forecast(lat, lon, appid)
-        }
-
+        viewModel.forecast()
     }
 
     override fun onCreateView(
