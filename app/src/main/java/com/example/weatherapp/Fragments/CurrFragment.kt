@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.fab.Toaster
+import com.example.fab1.CustomButton
 import com.example.weatherapp.MainViewModel
 import com.example.weatherapp.R
 
@@ -28,11 +31,14 @@ class CurrFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val forcastButton: Button = view.findViewById(R.id.button)
         val temperatureView: TextView = view.findViewById(R.id.textView2)
-
+        val layout :ConstraintLayout= view.findViewById(R.id.frameLayout4)
+        val t = CustomButton.Builder().setContext(requireContext())
+            .setLayout(layout)
+            .build()
 
 
         viewModel.currentResponse.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+            t.show()
             temperatureView.text = ("Current Temp:" + ktoC(it.main.temp) + "\n"
                     + "Min temp :" + ktoC(it.main.temp_min) + "\n" + "Max temp :" + ktoC(it.main.temp_max)
                     + "\n" + "Description " + it.weather[0].description + "\n")
