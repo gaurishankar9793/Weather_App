@@ -24,7 +24,7 @@ class CustomAlert constructor(private val context: Context) {
     fun show() {
 
 
-        var builder = AlertDialog.Builder(context)
+        val builder = AlertDialog.Builder(context)
         builder.setTitle("Select An Option")
             .setItems(options,
                 { _, it ->
@@ -37,7 +37,7 @@ class CustomAlert constructor(private val context: Context) {
             dialog.dismiss()
         }
 
-        var alert = builder.create()
+        val alert = builder.create()
         alert.show()
 
         val timer = object : CountDownTimer(3000, 1000) {
