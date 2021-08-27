@@ -14,17 +14,19 @@ import android.content.DialogInterface
 
 
 class CustomButton private constructor(private val context: Context?, private val message :String?,
-private val layout: ConstraintLayout?
+private val layout: ConstraintLayout?,
+private val waitTime :Long?
 )
 {
     data class Builder(var context: Context? =null, var message :String? = "N0 message",
-    var layout: ConstraintLayout? = null){
+    var layout: ConstraintLayout? = null,
+    var waitTime:Long? = 3000){
         fun setContext(context: Context) =apply { this.context = context }
 
         fun setMessage(message: String) = apply {  this.message = message }
-
+        fun setWaitTime(waitTime: Long) = apply{ this.waitTime = waitTime}
         fun setLayout(layout: ConstraintLayout) = apply { this.layout = layout }
-        fun build() = CustomButton(context, message,layout)
+        fun build() = CustomButton(context, message,layout,waitTime)
     }
 
     fun maker()
@@ -40,7 +42,7 @@ private val layout: ConstraintLayout?
         fabButton.layoutParams = layoutParams
         fabButton.setOnClickListener{
             Toast.makeText(context, "You clicked Floating Action Button", Toast.LENGTH_SHORT).show()
-                CustomAlert(context).show()
+                CustomAlert(context, waitTime!!).show()
         }
         layout?.addView(fabButton)
 

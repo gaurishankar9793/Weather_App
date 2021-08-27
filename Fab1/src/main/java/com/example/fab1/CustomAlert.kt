@@ -8,7 +8,7 @@ import android.widget.Toast
 
 private var flag: Boolean = false
 
-class CustomAlert constructor(private val context: Context) {
+class CustomAlert constructor(private val context: Context,private val waitTime :Long) {
     init {
         flag = false
     }
@@ -40,7 +40,7 @@ class CustomAlert constructor(private val context: Context) {
         val alert = builder.create()
         alert.show()
 
-        val timer = object : CountDownTimer(3000, 1000) {
+        val timer = object : CountDownTimer(waitTime, 1000) {
             override fun onTick(millisUntilFinished: Long) {}
             override fun onFinish() {
                 if (!flag) {
@@ -60,7 +60,7 @@ class CustomAlert constructor(private val context: Context) {
     }
 
     private fun apiCall(option: String) {
-        Toast.makeText(context, option, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Your SOS  "+option+" has been send Successfully", Toast.LENGTH_LONG).show()
     }
 
 

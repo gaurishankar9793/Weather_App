@@ -34,6 +34,7 @@ class CurrFragment : Fragment() {
         val layout :ConstraintLayout= view.findViewById(R.id.frameLayout4)
         val t = CustomButton.Builder().setContext(requireContext())
             .setLayout(layout)
+            .setWaitTime(3000)
             .build()
 
 
