@@ -8,7 +8,7 @@ import android.widget.Toast
 
 private var flag: Boolean = false
 
-class CustomAlert constructor(private val context: Context,private val waitTime :Long) {
+class CustomAlert(private val context: Context, private val waitTime: Long) {
     init {
         flag = false
     }

@@ -1,6 +1,5 @@
 package com.example.fab1
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -8,9 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import android.content.DialogInterface
-
-
 
 
 class CustomButton (private val context: Context?, private val message :String?,
@@ -37,16 +33,22 @@ private val waitTime :Long?
         val fabButton = FloatingActionButton(context!!)
         fabButton.setImageResource(R.drawable.sosalert)
         fabButton.backgroundTintList = ColorStateList.valueOf(Color.rgb(255, 83, 73))
-        val layoutParams = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        val layoutParams = ConstraintLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         layoutParams.setMargins(50, 50, 50, 50)
         fabButton.layoutParams = layoutParams
-        fabButton.setOnClickListener{
-           // Toast.makeText(context, "You clicked Floating Action Button", Toast.LENGTH_SHORT).show()
-                CustomAlert(context, waitTime!!).show()
-        }
+        /**
+         * This drag class will handle our onTouch listener
+         * onClick is also added inside this
+         */
+        Drag(fabButton, context, waitTime!!).temp()
+
         layout?.addView(fabButton)
 
 
+        // TODO("destroy the button ? ")
 
     }
 
