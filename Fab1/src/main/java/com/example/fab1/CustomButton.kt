@@ -13,7 +13,7 @@ import android.content.DialogInterface
 
 
 
-class CustomButton private constructor(private val context: Context?, private val message :String?,
+class CustomButton (private val context: Context?, private val message :String?,
 private val layout: ConstraintLayout?,
 private val waitTime :Long?
 )
@@ -41,7 +41,7 @@ private val waitTime :Long?
         layoutParams.setMargins(50, 50, 50, 50)
         fabButton.layoutParams = layoutParams
         fabButton.setOnClickListener{
-            Toast.makeText(context, "You clicked Floating Action Button", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "You clicked Floating Action Button", Toast.LENGTH_SHORT).show()
                 CustomAlert(context, waitTime!!).show()
         }
         layout?.addView(fabButton)

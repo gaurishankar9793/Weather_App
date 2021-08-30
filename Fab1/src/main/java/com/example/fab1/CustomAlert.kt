@@ -32,7 +32,7 @@ class CustomAlert constructor(private val context: Context,private val waitTime 
 
                 })
         builder.setPositiveButton("False Alarm") { dialog, _ ->
-
+            flag = true
             dialog.cancel()
             dialog.dismiss()
         }
