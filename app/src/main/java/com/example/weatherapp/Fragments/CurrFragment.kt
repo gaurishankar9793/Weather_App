@@ -35,6 +35,8 @@ class CurrFragment : Fragment() {
         val t = CustomButton.Builder().setContext(requireContext())
             .setLayout(layout)
             .setWaitTime(3000)
+            .setX(30F)
+            .setY(30F)
             .build()
 
 
@@ -55,6 +57,7 @@ class CurrFragment : Fragment() {
 
 
         forcastButton.setOnClickListener {
+            t.removeButton()
             findNavController().navigate(R.id.to_forecast)
         }
     }

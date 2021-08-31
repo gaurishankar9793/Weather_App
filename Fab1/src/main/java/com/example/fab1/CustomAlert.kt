@@ -3,7 +3,9 @@ package com.example.fab1
 import android.app.AlertDialog
 import android.content.Context
 import android.os.CountDownTimer
+import android.telecom.Call
 import android.widget.Toast
+import com.example.fab1.api.Details
 
 
 private var flag: Boolean = false
@@ -60,7 +62,11 @@ class CustomAlert(private val context: Context, private val waitTime: Long) {
     }
 
     private fun apiCall(option: String) {
+        val viewModel = ViewModel()
+        val details = Details("hello",option)
+        viewModel.current(details)
         Toast.makeText(context, "Your SOS  "+option+" has been send Successfully", Toast.LENGTH_LONG).show()
+
     }
 
 

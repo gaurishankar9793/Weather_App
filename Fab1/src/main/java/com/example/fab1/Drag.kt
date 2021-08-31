@@ -21,7 +21,7 @@ class Drag(
 
 
     @SuppressLint("ClickableViewAccessibility")
-    fun temp() {
+    fun listener() {
         fabButton.setOnTouchListener(object : View.OnTouchListener {
 
             override fun onTouch(v: View?, e: MotionEvent?): Boolean {
