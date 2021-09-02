@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="Fab1/src/main/res/drawable-anydpi/ic_action_name.xml" value="0.1" />
+        <entry key="Fab1/src/main/res/drawable/alert.xml" value="0.1" />
+        <entry key="Fab1/src/main/res/drawable/image.xml" value="0.1" />
         <entry key="Fab1/src/main/res/drawable/sos_foreground.xml" value="0.1" />
         <entry key="Fab1/src/main/res/drawable/sosalert.xml" value="0.1" />
         <entry key="Fab1/src/main/res/drawable/sosimage_foreground.xml" value="0.1" />
+        <entry key="Fab1/src/main/res/mipmap-anydpi-v26/sos.xml" value="0.1" />
+        <entry key="Fab1/src/main/res/mipmap-anydpi-v26/sos_round.xml" value="0.1" />
+        <entry key="Fab1/src/main/res/mipmap-anydpi-v26/sosimage.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10778985507246377" />

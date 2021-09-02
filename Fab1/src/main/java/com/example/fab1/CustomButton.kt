@@ -3,12 +3,15 @@ package com.example.fab1
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.view.GestureDetector
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 lateinit var fabButton: FloatingActionButton
+const val floatingButton = 1024
 class CustomButton (private val context: Context?, private val message :String?,
 private val layout: ConstraintLayout?,
 private val waitTime :Long?,
@@ -44,12 +47,13 @@ private val activityViewModel: ViewModel?
         layout?.removeView(fabButton)
     }
     fun show() {
-         fabButton = FloatingActionButton(context!!)
+        fabButton = FloatingActionButton(context!!)
         fabButton.setImageResource(R.drawable.sosalert)
 
+        fabButton.id = floatingButton
         fabButton.x = positionX!!
         fabButton.y = positionY!!
-        fabButton.backgroundTintList = ColorStateList.valueOf(Color.rgb(255, 83, 73))
+        fabButton.backgroundTintList = ColorStateList.valueOf(Color.rgb(255, 102, 102)) //(255,102,102)
         val layoutParams = ConstraintLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -61,14 +65,14 @@ private val activityViewModel: ViewModel?
          * onClick is also added inside this
          * Drag is giving some errors would it be better to do it programmatically?
          */
-        //Drag(fabButton, context, waitTime!!).listener()
-        fabButton.setOnClickListener {
-            CustomAlert(context,waitTime!!).show()
-        }
-
-        layout?.addView(fabButton)
-
-
+        val gestureHandler =
+            GestureDetector(context, MyGestureDetector(fabButton, context, waitTime!!))
+        val touchListener =
+            View.OnTouchListener { View, event -> gestureHandler.onTouchEvent(event) }
+        fabButton.setOnTouchListener(touchListener)
+        var temp = layout?.findViewById<FloatingActionButton>(floatingButton)
+        if (temp == null)
+            layout?.addView(fabButton)
 
 
     }
