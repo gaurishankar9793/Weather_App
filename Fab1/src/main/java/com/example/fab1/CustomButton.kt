@@ -7,7 +7,6 @@ import android.view.GestureDetector
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 lateinit var fabButton: FloatingActionButton
@@ -56,11 +55,7 @@ private val activityViewModel: ViewModel?
         fabButton.backgroundTintList = ColorStateList.valueOf(Color.rgb(255, 102, 102)) //(255,102,102)
         fabButton.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        /**
-         * This drag class will handle our onTouch listener
-         * onClick is also added inside this
-         * Drag is giving some errors would it be better to do it programmatically?
-         */
+
         val gestureHandler =
             GestureDetector(context, MyGestureDetector(fabButton, context, waitTime!!))
         val touchListener =
