@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.example.fab1.CustomButton
 import com.example.weatherapp.MainViewModel
 import com.example.weatherapp.R
 
@@ -28,7 +29,12 @@ class ForecastFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val forcastView: TextView = view.findViewById(R.id.longtext)
         var forcastText = ""
-
+        val t = CustomButton.Builder().setContext(requireContext())
+            .setLayout(view.findViewById(R.id.frameLayout3))
+            .setWaitTime(3000)
+            .setX(30F)
+            .setY(30F)
+            .build()
 
         viewModel.forcastResponse.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
@@ -36,7 +42,7 @@ class ForecastFragment : Fragment() {
                 forcastText += "temp :" + ktoC(it.main.temp) + " weather :" + it.weather[0].description + "\n"
             }
             forcastView.text = forcastText
-
+            t.show()
         }
         )
 

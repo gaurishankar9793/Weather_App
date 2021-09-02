@@ -13,7 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 lateinit var fabButton: FloatingActionButton
 const val floatingButton = 1024
 class CustomButton (private val context: Context?, private val message :String?,
-private val layout: ConstraintLayout?,
+private val layout: ViewGroup?,
 private val waitTime :Long?,
 private val positionX:Float?,
 private val positionY :Float?,
@@ -21,7 +21,7 @@ private val activityViewModel: ViewModel?
 )
 {
     data class Builder(var context: Context? =null, var message :String? = "N0 message",
-    var layout: ConstraintLayout? = null,
+    var layout: ViewGroup? = null,
     var waitTime:Long? = 3000,
     var positionX: Float ? =0F,
     var positionY: Float ? =0F,
@@ -30,7 +30,7 @@ private val activityViewModel: ViewModel?
 
         fun setMessage(message: String) = apply {  this.message = message }
         fun setWaitTime(waitTime: Long) = apply{ this.waitTime = waitTime}
-        fun setLayout(layout: ConstraintLayout) = apply { this.layout = layout }
+        fun setLayout(layout: ViewGroup) = apply { this.layout = layout }
         fun setX(positionX: Float) = apply { this.positionX = positionX }
         fun setY(positionY: Float) = apply { this.positionY = positionY }
         fun setActivity(activityViewModel: ViewModel) = apply { this.activityViewModel = activityViewModel }
@@ -54,12 +54,8 @@ private val activityViewModel: ViewModel?
         fabButton.x = positionX!!
         fabButton.y = positionY!!
         fabButton.backgroundTintList = ColorStateList.valueOf(Color.rgb(255, 102, 102)) //(255,102,102)
-        val layoutParams = ConstraintLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        layoutParams.setMargins(50, 50, 50, 50)
-        fabButton.layoutParams = layoutParams
+        fabButton.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+
         /**
          * This drag class will handle our onTouch listener
          * onClick is also added inside this
