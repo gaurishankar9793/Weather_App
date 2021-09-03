@@ -1,5 +1,6 @@
 package com.example.fab1
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -12,28 +13,28 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 lateinit var fabButton: FloatingActionButton
 const val floatingButton = 1024
 class CustomButton (private val context: Context?, private val message :String?,
-private val layout: ViewGroup?,
-private val waitTime :Long?,
-private val positionX:Float?,
-private val positionY :Float?,
-private val activityViewModel: ViewModel?
+                    private val layout: ViewGroup?,
+                    private val waitTime :Long?,
+                    private val positionX:Float?,
+                    private val positionY: Float?
 )
 {
-    data class Builder(var context: Context? =null, var message :String? = "N0 message",
-    var layout: ViewGroup? = null,
-    var waitTime:Long? = 3000,
-    var positionX: Float ? =0F,
-    var positionY: Float ? =0F,
-    var activityViewModel: ViewModel? =null){
-        fun setContext(context: Context) =apply { this.context = context }
+    data class Builder(
+        var context: Context? = null, var message: String? = "N0 message",
+        var layout: ViewGroup? = null,
+        var waitTime: Long? = 3000,
+        var positionX: Float? = 0F,
+        var positionY: Float? = 0F
+    ) {
 
-        fun setMessage(message: String) = apply {  this.message = message }
-        fun setWaitTime(waitTime: Long) = apply{ this.waitTime = waitTime}
+        fun setContext(context: Context) = apply { this.context = context }
+        fun setMessage(message: String) = apply { this.message = message }
+        fun setWaitTime(waitTime: Long) = apply { this.waitTime = waitTime }
         fun setLayout(layout: ViewGroup) = apply { this.layout = layout }
         fun setX(positionX: Float) = apply { this.positionX = positionX }
         fun setY(positionY: Float) = apply { this.positionY = positionY }
-        fun setActivity(activityViewModel: ViewModel) = apply { this.activityViewModel = activityViewModel }
-        fun build() = CustomButton(context, message,layout,waitTime,positionX,positionY,activityViewModel)
+
+        fun build() = CustomButton(context, message, layout, waitTime, positionX, positionY)
 
     }
 
@@ -45,6 +46,8 @@ private val activityViewModel: ViewModel?
     {
         layout?.removeView(fabButton)
     }
+
+    @SuppressLint("ClickableViewAccessibility")
     fun show() {
         fabButton = FloatingActionButton(context!!)
         fabButton.setImageResource(R.drawable.sosalert)
@@ -61,7 +64,7 @@ private val activityViewModel: ViewModel?
         val touchListener =
             View.OnTouchListener { View, event -> gestureHandler.onTouchEvent(event) }
         fabButton.setOnTouchListener(touchListener)
-        var temp = layout?.findViewById<FloatingActionButton>(floatingButton)
+        val temp = layout?.findViewById<FloatingActionButton>(floatingButton)
         if (temp == null)
             layout?.addView(fabButton)
 

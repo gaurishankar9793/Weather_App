@@ -64,7 +64,7 @@ class CustomAlert(private val context: Context, private val waitTime: Long) {
         val viewModel = ViewModel()
         val details = Details("hello",option)
         viewModel.current(details)
-        Toast.makeText(context, "Your SOS  "+option+" has been send Successfully", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Your SOS  $option has been send Successfully", Toast.LENGTH_LONG).show()
 
     }
 

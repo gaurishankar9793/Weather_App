@@ -38,7 +38,7 @@ class MyGestureDetector(
 
 
     override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
-        Log.d("Button", "single confirmed")
+       // Log.d("Button", "single confirmed")
         CustomAlert(context, waitTime).show()
         return super.onSingleTapConfirmed(e)
     }
