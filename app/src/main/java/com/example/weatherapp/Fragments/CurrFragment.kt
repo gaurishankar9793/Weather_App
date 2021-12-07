@@ -32,19 +32,13 @@ class CurrFragment : Fragment() {
         val forcastButton: Button = view.findViewById(R.id.button)
         val temperatureView: TextView = view.findViewById(R.id.textView2)
         val layout :ConstraintLayout= view.findViewById(R.id.frameLayout4)
-        val t = CustomButton.Builder().setContext(requireContext())
-            .setLayout(layout)
-            .setWaitTime(3000)
-            .setX(30F)
-            .setY(30F)
-            .build()
 
 
         viewModel.currentResponse.observe(viewLifecycleOwner, Observer {
-            t.show()
-            temperatureView.text = ("Current Temp:" + ktoC(it.main.temp) + "\n"
-                    + "Min temp :" + ktoC(it.main.temp_min) + "\n" + "Max temp :" + ktoC(it.main.temp_max)
-                    + "\n" + "Description " + it.weather[0].description + "\n")
+
+            temperatureView.text = ("Current Temp: " + ktoC(it.main.temp)+"°C"  + "\n"
+                    + "Minimum Temp: " + ktoC(it.main.temp_min) +"°C" + "\n" + "Maximum Temp: " + ktoC(it.main.temp_max)+"°C"
+                + "\n" + "Description : " + it.weather[0].description + "\n")
 //
         }
         )
@@ -57,7 +51,7 @@ class CurrFragment : Fragment() {
 
 
         forcastButton.setOnClickListener {
-            t.removeButton()
+
             findNavController().navigate(R.id.to_forecast)
         }
     }

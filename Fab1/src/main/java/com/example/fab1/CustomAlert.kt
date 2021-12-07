@@ -15,10 +15,10 @@ class CustomAlert(private val context: Context, private val waitTime: Long) {
     }
 
     private val options: Array<String> = arrayOf(
-        "Abducted",
-        "Assaulted",
+        "Netflix",
+        "",
         "Met with an accident",
-        "CX Escaped with Gold/Theft",
+        "Call A Friend",
         "Others"
     )
 

@@ -29,20 +29,15 @@ class ForecastFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val forcastView: TextView = view.findViewById(R.id.longtext)
         var forcastText = ""
-        val t = CustomButton.Builder().setContext(requireContext())
-            .setLayout(view.findViewById(R.id.frameLayout3))
-            .setWaitTime(3000)
-            .setX(30F)
-            .setY(30F)
-            .build()
+
 
         viewModel.forcastResponse.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
-            it.list.take(10).forEach {
-                forcastText += "temp :" + ktoC(it.main.temp) + " weather :" + it.weather[0].description + "\n"
+            it.list.take(7).forEach {
+                forcastText += "Temperature : " + ktoC(it.main.temp) +"°C" +"\n"+ " Description : " + it.weather[0].description + "\n"
             }
             forcastView.text = forcastText
-            t.show()
+
         }
         )
 
